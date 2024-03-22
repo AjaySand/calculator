@@ -2,12 +2,13 @@ package main
 
 import (
 	"context"
-	"errors"
 	"log"
 	"net"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/reflection"
+	"google.golang.org/grpc/status"
 
 	"github.com/AjaySand/gRPC-calculator/pb"
 )
@@ -36,7 +37,7 @@ func (s *Server) Multiply(context context.Context, in *pb.CalculatorRequest) (*p
 
 func (s *Server) Divide(context context.Context, in *pb.CalculatorRequest) (*pb.CalculatorResponse, error) {
 	if in.Y == 0 {
-		return nil, errors.New("Cannot divide by zero")
+		return nil, status.Error(codes.InvalidArgument, "cannot divide by zero")
 	}
 
 	return &pb.CalculatorResponse{
