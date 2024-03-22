@@ -34,7 +34,7 @@ func (s *Server) Multiply(context context.Context, in *pb.CalculatorRequest) (*p
 	}, nil
 }
 
-func (s *Server) Devide(context context.Context, in *pb.CalculatorRequest) (*pb.CalculatorResponse, error) {
+func (s *Server) Divide(context context.Context, in *pb.CalculatorRequest) (*pb.CalculatorResponse, error) {
 	if in.Y == 0 {
 		return nil, errors.New("Cannot divide by zero")
 	}

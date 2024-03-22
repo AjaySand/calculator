@@ -22,7 +22,7 @@ const (
 	Calculator_Add_FullMethodName      = "/calculator.Calculator/Add"
 	Calculator_Subtract_FullMethodName = "/calculator.Calculator/Subtract"
 	Calculator_Multiply_FullMethodName = "/calculator.Calculator/Multiply"
-	Calculator_Devide_FullMethodName   = "/calculator.Calculator/Devide"
+	Calculator_Divide_FullMethodName   = "/calculator.Calculator/Divide"
 )
 
 // CalculatorClient is the client API for Calculator service.
@@ -32,7 +32,7 @@ type CalculatorClient interface {
 	Add(ctx context.Context, in *CalculatorRequest, opts ...grpc.CallOption) (*CalculatorResponse, error)
 	Subtract(ctx context.Context, in *CalculatorRequest, opts ...grpc.CallOption) (*CalculatorResponse, error)
 	Multiply(ctx context.Context, in *CalculatorRequest, opts ...grpc.CallOption) (*CalculatorResponse, error)
-	Devide(ctx context.Context, in *CalculatorRequest, opts ...grpc.CallOption) (*CalculatorResponse, error)
+	Divide(ctx context.Context, in *CalculatorRequest, opts ...grpc.CallOption) (*CalculatorResponse, error)
 }
 
 type calculatorClient struct {
@@ -70,9 +70,9 @@ func (c *calculatorClient) Multiply(ctx context.Context, in *CalculatorRequest, 
 	return out, nil
 }
 
-func (c *calculatorClient) Devide(ctx context.Context, in *CalculatorRequest, opts ...grpc.CallOption) (*CalculatorResponse, error) {
+func (c *calculatorClient) Divide(ctx context.Context, in *CalculatorRequest, opts ...grpc.CallOption) (*CalculatorResponse, error) {
 	out := new(CalculatorResponse)
-	err := c.cc.Invoke(ctx, Calculator_Devide_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Calculator_Divide_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +86,7 @@ type CalculatorServer interface {
 	Add(context.Context, *CalculatorRequest) (*CalculatorResponse, error)
 	Subtract(context.Context, *CalculatorRequest) (*CalculatorResponse, error)
 	Multiply(context.Context, *CalculatorRequest) (*CalculatorResponse, error)
-	Devide(context.Context, *CalculatorRequest) (*CalculatorResponse, error)
+	Divide(context.Context, *CalculatorRequest) (*CalculatorResponse, error)
 	mustEmbedUnimplementedCalculatorServer()
 }
 
@@ -103,8 +103,8 @@ func (UnimplementedCalculatorServer) Subtract(context.Context, *CalculatorReques
 func (UnimplementedCalculatorServer) Multiply(context.Context, *CalculatorRequest) (*CalculatorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Multiply not implemented")
 }
-func (UnimplementedCalculatorServer) Devide(context.Context, *CalculatorRequest) (*CalculatorResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Devide not implemented")
+func (UnimplementedCalculatorServer) Divide(context.Context, *CalculatorRequest) (*CalculatorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Divide not implemented")
 }
 func (UnimplementedCalculatorServer) mustEmbedUnimplementedCalculatorServer() {}
 
@@ -173,20 +173,20 @@ func _Calculator_Multiply_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Calculator_Devide_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Calculator_Divide_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CalculatorRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CalculatorServer).Devide(ctx, in)
+		return srv.(CalculatorServer).Divide(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Calculator_Devide_FullMethodName,
+		FullMethod: Calculator_Divide_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CalculatorServer).Devide(ctx, req.(*CalculatorRequest))
+		return srv.(CalculatorServer).Divide(ctx, req.(*CalculatorRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -211,8 +211,8 @@ var Calculator_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Calculator_Multiply_Handler,
 		},
 		{
-			MethodName: "Devide",
-			Handler:    _Calculator_Devide_Handler,
+			MethodName: "Divide",
+			Handler:    _Calculator_Divide_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
